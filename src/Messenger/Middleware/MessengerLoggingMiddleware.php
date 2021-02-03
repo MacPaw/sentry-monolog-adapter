@@ -44,12 +44,12 @@ class MessengerLoggingMiddleware implements MiddlewareInterface
         }
 
         $redeliveryStamp  = $exception->getEnvelope()->last(RedeliveryStamp::class);
-        if ($redeliveryStamp instanceof RedeliveryStamp && $redeliveryStamp->getRetryCount() >= $this->ignoredRetries) {
-            $this->logger->error(get_class($exception), [
-                'exception' => $exception,
-                'parameters' => ['retryCount' => $redeliveryStamp->getRetryCount()],
-            ]);
-        }
+        $retryCount = $redeliveryStamp instanceof RedeliveryStamp ? $redeliveryStamp->getRetryCount() : 0;
+
+        $this->logger->error(get_class($exception), [
+            'exception' => $exception,
+            'parameters' => ['retryCount' => $retryCount],
+        ]);
 
         $this->flushSentry();
     }

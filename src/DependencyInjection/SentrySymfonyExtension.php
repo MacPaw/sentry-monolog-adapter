@@ -21,27 +21,22 @@ class SentrySymfonyExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
-        $this->loadMessengerLoggingMiddleware($config, $loader, $container);
-        $this->loadMonologHandlerDecorator($config, $loader, $container);
+        $this->loadMessengerLoggingMiddleware($config, $loader);
+        $this->loadMonologHandlerDecorator($config, $loader);
     }
 
     private function loadMessengerLoggingMiddleware(
         array $config,
-        XmlFileLoader $loader,
-        ContainerBuilder $container
+        XmlFileLoader $loader
     ): void {
         if ($config['messenger_logging_middleware']['enabled']) {
             $loader->load('messenger_logging_middleware.xml');
-
-            $service = $container->getDefinition('sentry_symfony.messenger_logging_middleware');
-            $service->setArgument('ignoredRetries', $config['messenger_logging_middleware']['ignored_retries']);
         }
     }
 
     private function loadMonologHandlerDecorator(
         array $config,
-        XmlFileLoader $loader,
-        ContainerBuilder $container
+        XmlFileLoader $loader
     ): void {
         if ($config['monolog_handler_decorator']['enabled']) {
             $loader->load('monolog_handler_decorator.xml');
