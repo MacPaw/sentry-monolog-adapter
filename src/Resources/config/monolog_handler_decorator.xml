@@ -6,7 +6,7 @@
     <services>
         <service id="App\Mailer"/>
 
-        <service id="sentry_symfony.monolog_handler_decorator" class="SentrySymfony\Monolog\Handler\MonologHandlerDecorator" decorates="Sentry\Monolog\Handler">
+        <service id="sentry_monolog_adapter.monolog_handler_decorator" class="SentryMonologAdapter\Monolog\Handler\MonologHandlerDecorator" decorates="Sentry\Monolog\Handler">
             <argument type="service" id=".inner"/>
         </service>
     </services>

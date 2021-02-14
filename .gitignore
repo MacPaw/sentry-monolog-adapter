@@ -3,7 +3,6 @@ build
 vendor
 phpcs.xml
 phpunit.xml
-.phpunit.result.cache
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -19,3 +18,4 @@ phpunit.xml
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+/composer.lock

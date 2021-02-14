@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace SentrySymfony\Messenger\Middleware;
+namespace SentryMonologAdapter\Messenger\Middleware;
 
 use Psr\Log\LoggerInterface;
 use Sentry\ClientInterface;
 use Sentry\State\HubInterface;
+use SentryMonologAdapter\Messenger\LoggingStrategy\LoggingStrategyInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
@@ -18,13 +19,16 @@ class MessengerLoggingMiddleware implements MiddlewareInterface
 {
     private HubInterface $hub;
     private LoggerInterface $logger;
-    private int $ignoredRetries;
+    private LoggingStrategyInterface $loggingStrategy;
 
-    public function __construct(HubInterface $hub, LoggerInterface $logger, $ignoredRetries)
-    {
+    public function __construct(
+        HubInterface $hub,
+        LoggerInterface $logger,
+        LoggingStrategyInterface $loggingStrategy
+    ) {
         $this->hub = $hub;
         $this->logger = $logger;
-        $this->ignoredRetries = (int) $ignoredRetries;
+        $this->loggingStrategy = $loggingStrategy;
     }
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
@@ -46,12 +50,14 @@ class MessengerLoggingMiddleware implements MiddlewareInterface
         $redeliveryStamp  = $exception->getEnvelope()->last(RedeliveryStamp::class);
         $retryCount = $redeliveryStamp instanceof RedeliveryStamp ? $redeliveryStamp->getRetryCount() : 0;
 
-        $this->logger->error(get_class($exception), [
-            'exception' => $exception,
-            'parameters' => ['retryCount' => $retryCount],
-        ]);
+        if($this->loggingStrategy->willLog($retryCount)){
+            $this->logger->error(get_class($exception), [
+                'exception' => $exception,
+                'parameters' => ['retryCount' => $retryCount],
+            ]);
 
-        $this->flushSentry();
+            $this->flushSentry();
+        }
     }
 
     private function flushSentry(): void

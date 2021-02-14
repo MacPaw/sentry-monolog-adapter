@@ -40,12 +40,12 @@
     },
     "autoload": {
         "psr-4": {
-            "SentrySymfony\\": "src"
+            "SentryMonologAdapter\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SentrySymfony\\Tests\\": "tests"
+            "SentryMonologAdapter\\Tests\\": "tests"
         }
     },
     "scripts": {

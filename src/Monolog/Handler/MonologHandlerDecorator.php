@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SentrySymfony\Monolog\Handler;
+namespace SentryMonologAdapter\Monolog\Handler;
 
 use Monolog\Handler\AbstractProcessingHandler;
 use Sentry\Monolog\Handler;

@@ -4,8 +4,15 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services
     http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="sentry_symfony.messenger_logging_middleware" class="SentrySymfony\Messenger\Middleware\MessengerLoggingMiddleware">
+        <service id="sentry_monolog_adapter.messenger_logging_middleware" class="SentryMonologAdapter\Messenger\Middleware\MessengerLoggingMiddleware">
             <argument key="$logger" type="service" id="monolog.logger" />
+            <argument key="$loggingStrategy" type="service" id="sentry_monolog_adapter.logging_strategy" />
         </service>
+
+        <service id="sentry_monolog_adapter.default_logging_strategy" class="SentryMonologAdapter\Messenger\LoggingStrategy\DefaultLoggingStrategy" public="false" />
+        <service id="sentry_monolog_adapter.ignore_beginning_logging_strategy" class="SentryMonologAdapter\Messenger\LoggingStrategy\IgnoreBeginningLoggingStrategy" public="false" />
+        <service id="sentry_monolog_adapter.ignore_ending_logging_strategy_logging_strategy" class="SentryMonologAdapter\Messenger\LoggingStrategy\IgnoreEndingLoggingStrategy" public="false" />
+
+        <service id="sentry_monolog_adapter.logging_strategy" alias="sentry_monolog_adapter.default_logging_strategy" public="false" />
     </services>
 </container>
