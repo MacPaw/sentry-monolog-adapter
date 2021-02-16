@@ -14,7 +14,7 @@ class SentryMonologAdapterExtension extends Extension
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
@@ -34,7 +34,10 @@ class SentryMonologAdapterExtension extends Extension
             $loader->load('messenger_logging_middleware.xml');
 
             if (isset($config['messenger_logging_middleware']['logging_strategy'])) {
-                $container->setAlias('sentry_monolog_adapter.logging_strategy', $config['messenger_logging_middleware']['logging_strategy']['id']);
+                $container->setAlias(
+                    'sentry_monolog_adapter.logging_strategy',
+                    $config['messenger_logging_middleware']['logging_strategy']['id']
+                );
 
                 if (isset($config['messenger_logging_middleware']['logging_strategy']['options'])) {
                     $loggingStrategyDefinition = $container->findDefinition('sentry_monolog_adapter.logging_strategy');
