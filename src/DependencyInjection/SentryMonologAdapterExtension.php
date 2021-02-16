@@ -36,10 +36,10 @@ class SentryMonologAdapterExtension extends Extension
             if (isset($config['messenger_logging_middleware']['logging_strategy'])) {
                 $container->setAlias('sentry_monolog_adapter.logging_strategy', $config['messenger_logging_middleware']['logging_strategy']['id']);
 
-                if(isset($config['messenger_logging_middleware']['logging_strategy']['options'])){
+                if (isset($config['messenger_logging_middleware']['logging_strategy']['options'])) {
                     $loggingStrategyDefinition = $container->findDefinition('sentry_monolog_adapter.logging_strategy');
 
-                    foreach($config['messenger_logging_middleware']['logging_strategy']['options'] as $key => $value){
+                    foreach ($config['messenger_logging_middleware']['logging_strategy']['options'] as $key => $value) {
                         $loggingStrategyDefinition->setArgument($key, $value);
                     }
                 }
@@ -56,7 +56,7 @@ class SentryMonologAdapterExtension extends Extension
             $loader->load('monolog_handler_decorator.xml');
 
             if (isset($config['monolog_handler_decorator']['processors'])) {
-                foreach ($config['monolog_handler_decorator']['processors'] as $processorClassName){
+                foreach ($config['monolog_handler_decorator']['processors'] as $processorClassName) {
                     $container
                         ->register($processorClassName)
                         ->setPublic(false)

@@ -8,13 +8,14 @@ class DefaultLoggingStrategy implements LoggingStrategyInterface
 {
     private int $interval;
 
-    public function __construct(int $interval) {
+    public function __construct(int $interval)
+    {
         $this->interval = $interval;
     }
 
     public function willLog(int $retryCount)
     {
-        if($retryCount % $this->interval) {
+        if ($retryCount % $this->interval) {
             return true;
         }
 
