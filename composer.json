@@ -4,12 +4,12 @@
     "type": "symfony-bundle",
     "keywords": [
         "MacPaw",
-        "symfony",
-        "sentry",
-        "monolog",
-        "logging"
+        "Symfony",
+        "Sentry",
+        "Monolog",
+        "Logging"
     ],
-    "homepage": "https://github.com/Macpaw>",
+    "homepage": "https://github.com/Macpaw",
     "license": "MIT",
     "authors": [
         {
@@ -27,11 +27,11 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "symfony/console": "^5.0",
-        "symfony/dotenv": "^5.0",
-        "symfony/monolog-bundle": "^3.5",
+        "symfony/console": "^4.4 || ^5.0",
+        "symfony/dotenv": "^4.4 || ^5.0",
+        "symfony/monolog-bundle": "^3.0",
         "sentry/sentry-symfony": "^4.0",
-        "symfony/messenger": "^5.0"
+        "symfony/messenger": "^4.4 || ^5.0"
     },
     "require-dev": {
         "phpstan/phpstan": "0.12.*",
@@ -56,8 +56,7 @@
             "dev-develop": "1.0.x-dev"
         },
         "symfony": {
-            "allow-contrib": false,
-            "require": "5.0"
+            "allow-contrib": false
         }
     }
 }
