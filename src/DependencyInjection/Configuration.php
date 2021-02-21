@@ -41,6 +41,7 @@ class Configuration implements ConfigurationInterface
                     ->arrayNode('logging_strategy')
                         ->children()
                             ->scalarNode('id')->cannotBeEmpty()->end()
+                            ->scalarNode('argument')->end()
                         ->end()
                     ->end()
                 ->end()
