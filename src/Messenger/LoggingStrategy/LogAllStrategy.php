@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SentryMonologAdapter\Messenger\LoggingStrategy;
 
-class DefaultLoggingStrategy implements LoggingStrategyInterface
+class LogAllStrategy implements LoggingStrategyInterface
 {
     private int $interval;
 
