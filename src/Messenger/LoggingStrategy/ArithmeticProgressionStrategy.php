@@ -8,12 +8,12 @@ class ArithmeticProgressionStrategy implements LoggingStrategyInterface
 {
     private int $step;
 
-    public function __construct($step)
+    public function __construct(int $step)
     {
         $this->step = $step;
     }
 
-    public function willLog(int $retryCount)
+    public function willLog(int $retryCount): bool
     {
         return $retryCount % $this->step === 0;
     }

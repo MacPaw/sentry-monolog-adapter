@@ -13,6 +13,8 @@ class SentryMonologAdapterExtension extends Extension
 {
     /**
      * {@inheritdoc}
+     *
+     * @param array<string, mixed> $configs
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -25,6 +27,11 @@ class SentryMonologAdapterExtension extends Extension
         $this->loadMonologHandlerDecorator($config, $loader, $container);
     }
 
+    /**
+     * @param array<string, mixed> $config
+     * @param XmlFileLoader $loader
+     * @param ContainerBuilder $container
+     */
     private function loadMessengerLoggingMiddleware(
         array $config,
         XmlFileLoader $loader,
@@ -50,6 +57,11 @@ class SentryMonologAdapterExtension extends Extension
         }
     }
 
+    /**
+     * @param array<string, mixed> $config
+     * @param XmlFileLoader $loader
+     * @param ContainerBuilder $container
+     */
     private function loadMonologHandlerDecorator(
         array $config,
         XmlFileLoader $loader,

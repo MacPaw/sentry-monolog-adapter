@@ -13,7 +13,7 @@ class LogAllStrategy implements LoggingStrategyInterface
         $this->interval = $interval;
     }
 
-    public function willLog(int $retryCount)
+    public function willLog(int $retryCount): bool
     {
         if ($retryCount % $this->interval) {
             return true;

@@ -8,12 +8,12 @@ class LogAfterCountStrategy implements LoggingStrategyInterface
 {
     private int $ignoredCount;
 
-    public function __construct($ignoredCount)
+    public function __construct(int $ignoredCount)
     {
         $this->ignoredCount = $ignoredCount;
     }
 
-    public function willLog(int $retryCount)
+    public function willLog(int $retryCount): bool
     {
         return $retryCount >= $this->ignoredCount;
     }
