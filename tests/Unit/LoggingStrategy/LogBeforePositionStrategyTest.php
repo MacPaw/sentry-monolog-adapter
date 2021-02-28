@@ -41,12 +41,16 @@ class LogBeforePositionStrategyTest extends AbstractUnitTestCase
     {
         return [
             [
+                self::RETRY_COUNT => 0,
+                self::WILL_LOG => true
+            ],
+            [
                 self::RETRY_COUNT => 1,
                 self::WILL_LOG => true
             ],
             [
                 self::RETRY_COUNT => 2,
-                self::WILL_LOG => false
+                self::WILL_LOG => true
             ],
             [
                 self::RETRY_COUNT => 3,

@@ -57,6 +57,9 @@
         ],
         "phpstan": [
             "vendor/bin/phpstan analyse"
+        ],
+        "phpunit": [
+            "vendor/bin/simple-phpunit"
         ]
     },
     "extra": {
