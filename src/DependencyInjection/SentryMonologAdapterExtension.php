@@ -40,9 +40,9 @@ class SentryMonologAdapterExtension extends Extension
                 );
 
                 $loggingStrategyDefinition = $container->findDefinition('sentry_monolog_adapter.logging_strategy');
-                $loggingStrategyDefinition->addArgument(
-                    $config['messenger_logging_middleware']['logging_strategy']['argument']
-                );
+                foreach ($config['messenger_logging_middleware']['logging_strategy']['options'] as $key => $value) {
+                    $loggingStrategyDefinition->setArgument('$' . $key, $value);
+                }
             }
         }
     }
