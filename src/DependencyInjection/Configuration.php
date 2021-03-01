@@ -8,10 +8,10 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('sentry_monolog_adapter');
-        $root = $treeBuilder->getRootNode()->children();;
+        $root = $treeBuilder->getRootNode()->children();
 
         $this->addMonologHandlerSection($root);
         $this->addMessengerLoggingMiddlewareSection($root);
@@ -19,7 +19,7 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    private function addMonologHandlerSection(NodeBuilder $builder)
+    private function addMonologHandlerSection(NodeBuilder $builder): void
     {
         $builder
             ->arrayNode('monolog_handler_decorator')
@@ -33,7 +33,7 @@ class Configuration implements ConfigurationInterface
         ;
     }
 
-    private function addMessengerLoggingMiddlewareSection(NodeBuilder $builder)
+    private function addMessengerLoggingMiddlewareSection(NodeBuilder $builder): void
     {
         $builder
             ->arrayNode('messenger_logging_middleware')
