@@ -17,7 +17,7 @@ class IgnoreBeginningLoggingStrategy implements LoggingStrategyInterface
 
     public function willLog(int $retryCount)
     {
-        if($retryCount % $this->interval === 0 && $retryCount >= $this->ignoredCount){
+        if ($retryCount % $this->interval === 0 && $retryCount >= $this->ignoredCount) {
             return true;
         }
 
