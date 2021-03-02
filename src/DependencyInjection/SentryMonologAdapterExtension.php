@@ -39,12 +39,9 @@ class SentryMonologAdapterExtension extends Extension
                     $config['messenger_logging_middleware']['logging_strategy']['id']
                 );
 
-                if (isset($config['messenger_logging_middleware']['logging_strategy']['options'])) {
-                    $loggingStrategyDefinition = $container->findDefinition('sentry_monolog_adapter.logging_strategy');
-
-                    foreach ($config['messenger_logging_middleware']['logging_strategy']['options'] as $key => $value) {
-                        $loggingStrategyDefinition->setArgument($key, $value);
-                    }
+                $loggingStrategyDefinition = $container->findDefinition('sentry_monolog_adapter.logging_strategy');
+                foreach ($config['messenger_logging_middleware']['logging_strategy']['options'] as $key => $value) {
+                    $loggingStrategyDefinition->setArgument('$' . $key, $value);
                 }
             }
         }

@@ -49,6 +49,15 @@
         }
     },
     "scripts": {
+        "cs": [
+            "vendor/bin/phpcs"
+        ],
+        "cs-fix": [
+            "vendor/bin/phpcbf"
+        ],
+        "phpstan": [
+            "vendor/bin/phpstan analyse"
+        ]
     },
     "extra": {
         "branch-alias": {
