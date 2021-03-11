@@ -12,6 +12,8 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 class SentryMonologAdapterExtension extends Extension
 {
     /**
+     * @param array<array> $configs
+     *
      * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container): void
@@ -25,6 +27,9 @@ class SentryMonologAdapterExtension extends Extension
         $this->loadMonologHandlerDecorator($config, $loader, $container);
     }
 
+    /**
+     * @param array<array> $config
+     */
     private function loadMessengerLoggingMiddleware(
         array $config,
         XmlFileLoader $loader,
@@ -47,6 +52,9 @@ class SentryMonologAdapterExtension extends Extension
         }
     }
 
+    /**
+     * @param array<array> $config
+     */
     private function loadMonologHandlerDecorator(
         array $config,
         XmlFileLoader $loader,

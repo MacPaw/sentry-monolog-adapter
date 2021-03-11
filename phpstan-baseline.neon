@@ -2,7 +2,9 @@ parameters:
 	ignoreErrors:
 	    -
 	        message: '#.*NodeParentInterface|null.*#'
+	        count: 2
 	        path: ./src/DependencyInjection
 	    -
 	        message: '#.*NodeDefinition::children.*#'
+	        count: 1
 	        path: ./src/DependencyInjection
