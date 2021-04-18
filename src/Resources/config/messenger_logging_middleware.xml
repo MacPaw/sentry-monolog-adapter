@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services
     http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service autowire="true" public="true" id="sentry_monolog_adapter.messenger_logging_middleware" class="SentryMonologAdapter\Messenger\Middleware\MessengerLoggingMiddleware">
+        <service id="sentry_monolog_adapter.messenger_logging_middleware" class="SentryMonologAdapter\Messenger\Middleware\MessengerLoggingMiddleware">
             <argument key="$logger" type="service" id="monolog.logger" />
             <argument key="$loggingStrategy" type="service" id="sentry_monolog_adapter.logging_strategy" />
         </service>
