@@ -17,7 +17,7 @@ final class ConfigurationTest extends TestCase
                 'processors' => [],
                 'enabled' => false
             ],
-            'messenger_logging_middleware' =>[
+            'messenger_logging_middleware' => [
                 'enabled' => false
             ]
         ];

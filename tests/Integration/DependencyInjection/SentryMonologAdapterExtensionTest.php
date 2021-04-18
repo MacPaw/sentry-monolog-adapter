@@ -7,6 +7,7 @@ namespace SentryMonologAdapter\Tests\Integration\DependencyInjection;
 use PHPUnit\Framework\TestCase;
 use Sentry\Monolog\Handler;
 use SentryMonologAdapter\DependencyInjection\SentryMonologAdapterExtension;
+use SentryMonologAdapter\Messenger\LoggingStrategy\LogAfterPositionStrategy;
 use SentryMonologAdapter\Messenger\Middleware\MessengerLoggingMiddleware;
 use SentryMonologAdapter\Monolog\Handler\MonologHandlerDecorator;
 use Symfony\Component\Config\FileLocator;
@@ -21,6 +22,7 @@ class SentryMonologAdapterExtensionTest extends TestCase
     {
         $container = $this->createContainerFromFixture('empty_bundle_config');
 
+        //phpcs:disable Generic.Files.LineLength
         try {
             $monologHandlerDecoratorDefinition = $container->getDefinition(MonologHandlerDecorator::class);
         } catch (Throwable $exception) {
@@ -40,6 +42,7 @@ class SentryMonologAdapterExtensionTest extends TestCase
                 $exception->getMessage()
             );
         }
+        //phpcs:disable Generic.Files.LineLength
     }
 
     public function testWithFullConfig(): void
@@ -68,6 +71,15 @@ class SentryMonologAdapterExtensionTest extends TestCase
         self::assertSame(
             'sentry_monolog_adapter.log_after_position_strategy',
             (string) $container->getAlias('sentry_monolog_adapter.logging_strategy')
+        );
+
+        $loggingStrategyDefinition = $container->getDefinition(
+            'sentry_monolog_adapter.log_after_position_strategy'
+        );
+        self::assertSame(LogAfterPositionStrategy::class, $loggingStrategyDefinition->getClass());
+        self::assertSame(
+            2,
+            $loggingStrategyDefinition->getArgument('$position')
         );
     }
 
