@@ -6,5 +6,5 @@ namespace SentryMonologAdapter\Messenger\LoggingStrategy;
 
 interface LoggingStrategyInterface
 {
-    public function willLog(int $retryCount);
+    public function willLog(int $retryCount): bool;
 }

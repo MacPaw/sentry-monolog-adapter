@@ -12,6 +12,8 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 class SentryMonologAdapterExtension extends Extension
 {
     /**
+     * @param array<array> $configs
+     *
      * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container): void
@@ -25,6 +27,9 @@ class SentryMonologAdapterExtension extends Extension
         $this->loadMonologHandlerDecorator($config, $loader, $container);
     }
 
+    /**
+     * @param array<array> $config
+     */
     private function loadMessengerLoggingMiddleware(
         array $config,
         XmlFileLoader $loader,
@@ -39,17 +44,17 @@ class SentryMonologAdapterExtension extends Extension
                     $config['messenger_logging_middleware']['logging_strategy']['id']
                 );
 
-                if (isset($config['messenger_logging_middleware']['logging_strategy']['options'])) {
-                    $loggingStrategyDefinition = $container->findDefinition('sentry_monolog_adapter.logging_strategy');
-
-                    foreach ($config['messenger_logging_middleware']['logging_strategy']['options'] as $key => $value) {
-                        $loggingStrategyDefinition->setArgument($key, $value);
-                    }
+                $loggingStrategyDefinition = $container->findDefinition('sentry_monolog_adapter.logging_strategy');
+                foreach ($config['messenger_logging_middleware']['logging_strategy']['options'] as $key => $value) {
+                    $loggingStrategyDefinition->setArgument('$' . $key, $value);
                 }
             }
         }
     }
 
+    /**
+     * @param array<array> $config
+     */
     private function loadMonologHandlerDecorator(
         array $config,
         XmlFileLoader $loader,

@@ -19,6 +19,9 @@ class MonologHandlerDecorator extends AbstractProcessingHandler
         $this->sentryHandler = $sentryHandler;
     }
 
+    /**
+     * @param array<array> $record
+     */
     protected function write(array $record): void
     {
         withScope(function (Scope $scope) use ($record): void {

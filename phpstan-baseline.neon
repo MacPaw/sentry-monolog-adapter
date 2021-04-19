@@ -1,6 +1,10 @@
 parameters:
 	ignoreErrors:
-		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:children\\(\\)\\.$#"
-			count: 1
-			path: DependencyInjection/Configuration.php
+	    -
+	        message: '#.*NodeParentInterface|null.*#'
+	        count: 2
+	        path: ./src/DependencyInjection
+	    -
+	        message: '#.*NodeDefinition::children.*#'
+	        count: 1
+	        path: ./src/DependencyInjection
