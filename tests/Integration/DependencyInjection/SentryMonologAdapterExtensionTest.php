@@ -64,14 +64,6 @@ class SentryMonologAdapterExtensionTest extends TestCase
             'monolog.logger',
             (string) $messengerLoggingMiddlewareDefinition->getArgument('$logger')
         );
-        self::assertSame(
-            'sentry_monolog_adapter.logging_strategy',
-            (string) $messengerLoggingMiddlewareDefinition->getArgument('$loggingStrategy')
-        );
-        self::assertSame(
-            'sentry_monolog_adapter.log_after_position_strategy',
-            (string) $container->getAlias('sentry_monolog_adapter.logging_strategy')
-        );
 
         $loggingStrategyDefinition = $container->getDefinition(
             'sentry_monolog_adapter.log_after_position_strategy'

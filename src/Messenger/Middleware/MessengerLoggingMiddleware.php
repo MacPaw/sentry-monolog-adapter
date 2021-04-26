@@ -19,16 +19,18 @@ class MessengerLoggingMiddleware implements MiddlewareInterface
 {
     private HubInterface $hub;
     private LoggerInterface $logger;
-    private LoggingStrategyInterface $loggingStrategy;
+    private array $loggingStrategies = [];
 
     public function __construct(
         HubInterface $hub,
-        LoggerInterface $logger,
-        LoggingStrategyInterface $loggingStrategy
+        LoggerInterface $logger
     ) {
         $this->hub = $hub;
         $this->logger = $logger;
-        $this->loggingStrategy = $loggingStrategy;
+    }
+
+    public function addLoggingStrategy(LoggingStrategyInterface $loggingStrategy){
+        $this->loggingStrategies[] = $loggingStrategy;
     }
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
@@ -50,13 +52,16 @@ class MessengerLoggingMiddleware implements MiddlewareInterface
         $redeliveryStamp  = $exception->getEnvelope()->last(RedeliveryStamp::class);
         $retryCount = $redeliveryStamp instanceof RedeliveryStamp ? $redeliveryStamp->getRetryCount() : 0;
 
-        if ($this->loggingStrategy->willLog($retryCount)) {
-            $this->logger->error(get_class($exception), [
-                'exception' => $exception,
-                'parameters' => ['retryCount' => $retryCount],
-            ]);
+        foreach ($this->loggingStrategies as $loggingStrategy) {
+            if ($loggingStrategy->willLog($retryCount)) {
+                $this->logger->error(get_class($exception), [
+                    'exception' => $exception,
+                    'parameters' => ['retryCount' => $retryCount],
+                ]);
 
-            $this->flushSentry();
+                $this->flushSentry();
+                return;
+            }
         }
     }
 
