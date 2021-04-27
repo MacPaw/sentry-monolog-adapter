@@ -4,16 +4,14 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services
     http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="sentry_monolog_adapter.messenger_logging_middleware" class="SentryMonologAdapter\Messenger\Middleware\MessengerLoggingMiddleware">
+        <service autowire="true" id="sentry_monolog_adapter.messenger_logging_middleware" class="SentryMonologAdapter\Messenger\Middleware\MessengerLoggingMiddleware">
             <argument key="$logger" type="service" id="monolog.logger" />
-            <argument key="$loggingStrategy" type="service" id="sentry_monolog_adapter.logging_strategy" />
         </service>
 
         <service id="sentry_monolog_adapter.log_all_strategy" class="SentryMonologAdapter\Messenger\LoggingStrategy\LogAllStrategy" public="false" />
+        <service id="sentry_monolog_adapter.log_all_failed_strategy" class="SentryMonologAdapter\Messenger\LoggingStrategy\LogAllFailedStrategy" public="false" />
         <service id="sentry_monolog_adapter.log_after_position_strategy" class="SentryMonologAdapter\Messenger\LoggingStrategy\LogAfterPositionStrategy" public="false" />
         <service id="sentry_monolog_adapter.log_before_position_strategy" class="SentryMonologAdapter\Messenger\LoggingStrategy\LogBeforePositionStrategy" public="false" />
         <service id="sentry_monolog_adapter.arithmetic_progression_strategy" class="SentryMonologAdapter\Messenger\LoggingStrategy\ArithmeticProgressionStrategy" public="false" />
-
-        <service id="sentry_monolog_adapter.logging_strategy" alias="sentry_monolog_adapter.default_logging_strategy" public="false" />
     </services>
 </container>

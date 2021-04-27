@@ -18,6 +18,7 @@ final class ConfigurationTest extends TestCase
                 'enabled' => false
             ],
             'messenger_logging_middleware' => [
+                'logging_strategies' => [],
                 'enabled' => false
             ]
         ];
@@ -81,14 +82,30 @@ final class ConfigurationTest extends TestCase
         return [
             [
                 [
-                    'logging_strategy' => [
-                        'id' => 'test_logging_strategy'
+                    'logging_strategies' => [
+                        [
+                            'id' => 'test_logging_strategy',
+                            'options' => [
+                                'position' => 'test'
+                            ]
+                        ],
+                        [
+                            'id' => 'failed_logging_strategy'
+                        ]
                     ]
                 ],
                 [
-                    'logging_strategy' => [
-                        'id' => 'test_logging_strategy',
-                        'options' => []
+                    'logging_strategies' => [
+                        [
+                            'id' => 'test_logging_strategy',
+                            'options' => [
+                                'position' => 'test'
+                            ]
+                        ],
+                        [
+                            'id' => 'failed_logging_strategy',
+                            'options' => []
+                        ]
                     ],
                     'enabled' => true
                 ]

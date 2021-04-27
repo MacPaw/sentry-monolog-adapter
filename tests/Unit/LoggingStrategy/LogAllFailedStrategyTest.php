@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace SentryMonologAdapter\Tests\Unit\LoggingStrategy;
 
-use SentryMonologAdapter\Messenger\LoggingStrategy\LogBeforePositionStrategy;
+use SentryMonologAdapter\Messenger\LoggingStrategy\LogAllFailedStrategy;
 use SentryMonologAdapter\Messenger\LoggingStrategy\LoggingStrategyInterface;
 use SentryMonologAdapter\Tests\Unit\AbstractUnitTestCase;
 use stdClass;
 use Symfony\Component\Messenger\Envelope;
-use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
+use Symfony\Component\Messenger\Stamp\SentToFailureTransportStamp;
 
-class LogBeforePositionStrategyTest extends AbstractUnitTestCase
+class LogAllFailedStrategyTest extends AbstractUnitTestCase
 {
     private LoggingStrategyInterface $loggingStrategy;
 
@@ -22,16 +22,16 @@ class LogBeforePositionStrategyTest extends AbstractUnitTestCase
     {
         parent::setUp();
 
-        $this->loggingStrategy = new LogBeforePositionStrategy(2);
+        $this->loggingStrategy = new LogAllFailedStrategy();
     }
 
     /**
      * @param Envelope $envelope
      * @param bool $willLog
      *
-     * @dataProvider getLogBeforePositionStrategyDataProvider
+     * @dataProvider getLogAllFailedStrategyDataProvider
      */
-    public function testLogBeforePositionStrategy(
+    public function testLogAllFailedStrategy(
         Envelope $envelope,
         bool $willLog
     ): void {
@@ -40,33 +40,19 @@ class LogBeforePositionStrategyTest extends AbstractUnitTestCase
         self::assertSame($willLog, $willLogActual);
     }
 
-    public function getLogBeforePositionStrategyDataProvider(): array
+    public function getLogAllFailedStrategyDataProvider(): array
     {
         return [
             [
                 self::ENVELOPE => new Envelope(new stdClass(), [
-                    new RedeliveryStamp(0)
+                    new SentToFailureTransportStamp('test')
                 ]),
                 self::WILL_LOG => true
             ],
             [
-                self::ENVELOPE => new Envelope(new stdClass(), [
-                    new RedeliveryStamp(1)
-                ]),
-                self::WILL_LOG => true
-            ],
-            [
-                self::ENVELOPE => new Envelope(new stdClass(), [
-                    new RedeliveryStamp(2)
-                ]),
-                self::WILL_LOG => true
-            ],
-            [
-                self::ENVELOPE => new Envelope(new stdClass(), [
-                    new RedeliveryStamp(3)
-                ]),
+                self::ENVELOPE => new Envelope(new stdClass(), []),
                 self::WILL_LOG => false
-            ],
+            ]
         ];
     }
 }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace SentryMonologAdapter\Messenger\LoggingStrategy;
 
-class LogAfterPositionStrategy implements LoggingStrategyInterface
+use Symfony\Component\Messenger\Envelope;
+
+class LogAfterPositionStrategy extends RetryCountDependentStrategy
 {
     private int $position;
 
@@ -13,8 +15,8 @@ class LogAfterPositionStrategy implements LoggingStrategyInterface
         $this->position = $position;
     }
 
-    public function willLog(int $retryCount): bool
+    public function willLog(Envelope $envelope): bool
     {
-        return $retryCount >= $this->position;
+        return $this->getRetryCount($envelope) >= $this->position;
     }
 }
