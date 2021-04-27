@@ -18,6 +18,10 @@ class MessengerLoggingMiddleware implements MiddlewareInterface
 {
     private HubInterface $hub;
     private LoggerInterface $logger;
+
+    /**
+     * @var array<LoggingStrategyInterface>
+     */
     private array $loggingStrategies = [];
 
     public function __construct(
@@ -28,7 +32,7 @@ class MessengerLoggingMiddleware implements MiddlewareInterface
         $this->logger = $logger;
     }
 
-    public function addLoggingStrategy(LoggingStrategyInterface $loggingStrategy)
+    public function addLoggingStrategy(LoggingStrategyInterface $loggingStrategy): void
     {
         $this->loggingStrategies[] = $loggingStrategy;
     }
