@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace SentryMonologAdapter\Messenger\LoggingStrategy;
 
-class ArithmeticProgressionStrategy implements LoggingStrategyInterface
+use Symfony\Component\Messenger\Envelope;
+
+class ArithmeticProgressionStrategy extends RetryCountDependentStrategy
 {
     private int $step;
 
@@ -13,8 +15,10 @@ class ArithmeticProgressionStrategy implements LoggingStrategyInterface
         $this->step = $step;
     }
 
-    public function willLog(int $retryCount): bool
+    public function willLog(Envelope $envelope): bool
     {
+        $retryCount = $this->getRetryCount($envelope);
+
         return $retryCount % $this->step === 0;
     }
 }

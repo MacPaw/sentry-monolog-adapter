@@ -7,12 +7,15 @@ namespace SentryMonologAdapter\Tests\Unit\LoggingStrategy;
 use SentryMonologAdapter\Messenger\LoggingStrategy\ArithmeticProgressionStrategy;
 use SentryMonologAdapter\Messenger\LoggingStrategy\LoggingStrategyInterface;
 use SentryMonologAdapter\Tests\Unit\AbstractUnitTestCase;
+use stdClass;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
 
 class ArithmeticProgressionStrategyTest extends AbstractUnitTestCase
 {
     private LoggingStrategyInterface $loggingStrategy;
 
-    private const RETRY_COUNT = 'retryCount';
+    private const ENVELOPE = 'envelope';
     private const WILL_LOG = 'willLog';
 
     protected function setUp(): void
@@ -23,41 +26,51 @@ class ArithmeticProgressionStrategyTest extends AbstractUnitTestCase
     }
 
     /**
-     * @param int $retryCount
+     * @param Envelope $envelope
      * @param bool $willLog
      *
-     * @dataProvider getPaymentEventDataProvider
+     * @dataProvider getArithmeticProgressionStrategyDataProvider
      */
-    public function testPaymentEvent(
-        int $retryCount,
+    public function testArithmeticProgressionStrategy(
+        Envelope $envelope,
         bool $willLog
     ): void {
-        $willLogActual = $this->loggingStrategy->willLog($retryCount);
+        $willLogActual = $this->loggingStrategy->willLog($envelope);
 
         self::assertSame($willLog, $willLogActual);
     }
 
-    public function getPaymentEventDataProvider(): array
+    public function getArithmeticProgressionStrategyDataProvider(): array
     {
         return [
             [
-                self::RETRY_COUNT => 0,
+                self::ENVELOPE => new Envelope(new stdClass(), [
+                    new RedeliveryStamp(0)
+                ]),
                 self::WILL_LOG => true
             ],
             [
-                self::RETRY_COUNT => 1,
+                self::ENVELOPE => new Envelope(new stdClass(), [
+                    new RedeliveryStamp(1)
+                ]),
                 self::WILL_LOG => false
             ],
             [
-                self::RETRY_COUNT => 2,
+                self::ENVELOPE => new Envelope(new stdClass(), [
+                    new RedeliveryStamp(2)
+                ]),
                 self::WILL_LOG => true
             ],
             [
-                self::RETRY_COUNT => 3,
+                self::ENVELOPE => new Envelope(new stdClass(), [
+                    new RedeliveryStamp(3)
+                ]),
                 self::WILL_LOG => false
             ],
             [
-                self::RETRY_COUNT => 4,
+                self::ENVELOPE => new Envelope(new stdClass(), [
+                    new RedeliveryStamp(4)
+                ]),
                 self::WILL_LOG => true
             ]
         ];

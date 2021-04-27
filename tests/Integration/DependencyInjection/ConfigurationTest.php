@@ -84,7 +84,10 @@ final class ConfigurationTest extends TestCase
                 [
                     'logging_strategies' => [
                         [
-                            'id' => 'test_logging_strategy'
+                            'id' => 'test_logging_strategy',
+                            'options' => [
+                                'position' => 'test'
+                            ]
                         ],
                         [
                             'id' => 'failed_logging_strategy'
@@ -95,7 +98,9 @@ final class ConfigurationTest extends TestCase
                     'logging_strategies' => [
                         [
                             'id' => 'test_logging_strategy',
-                            'options' => []
+                            'options' => [
+                                'position' => 'test'
+                            ]
                         ],
                         [
                             'id' => 'failed_logging_strategy',

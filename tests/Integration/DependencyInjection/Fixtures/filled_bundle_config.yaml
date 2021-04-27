@@ -5,3 +5,4 @@ sentry_monolog_adapter:
             - id: 'sentry_monolog_adapter.log_after_position_strategy'
               options:
                 position: 2
+            - id: 'sentry_monolog_adapter.log_all_failed_strategy'

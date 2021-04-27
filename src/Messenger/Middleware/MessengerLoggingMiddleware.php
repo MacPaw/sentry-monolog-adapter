@@ -12,7 +12,6 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
-use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
 use Throwable;
 
 class MessengerLoggingMiddleware implements MiddlewareInterface
@@ -29,7 +28,8 @@ class MessengerLoggingMiddleware implements MiddlewareInterface
         $this->logger = $logger;
     }
 
-    public function addLoggingStrategy(LoggingStrategyInterface $loggingStrategy){
+    public function addLoggingStrategy(LoggingStrategyInterface $loggingStrategy)
+    {
         $this->loggingStrategies[] = $loggingStrategy;
     }
 
@@ -49,14 +49,10 @@ class MessengerLoggingMiddleware implements MiddlewareInterface
             return;
         }
 
-        $redeliveryStamp  = $exception->getEnvelope()->last(RedeliveryStamp::class);
-        $retryCount = $redeliveryStamp instanceof RedeliveryStamp ? $redeliveryStamp->getRetryCount() : 0;
-
         foreach ($this->loggingStrategies as $loggingStrategy) {
-            if ($loggingStrategy->willLog($retryCount)) {
+            if ($loggingStrategy->willLog($exception->getEnvelope())) {
                 $this->logger->error(get_class($exception), [
                     'exception' => $exception,
-                    'parameters' => ['retryCount' => $retryCount],
                 ]);
 
                 $this->flushSentry();

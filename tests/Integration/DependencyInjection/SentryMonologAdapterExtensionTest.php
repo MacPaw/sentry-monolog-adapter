@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Sentry\Monolog\Handler;
 use SentryMonologAdapter\DependencyInjection\SentryMonologAdapterExtension;
 use SentryMonologAdapter\Messenger\LoggingStrategy\LogAfterPositionStrategy;
+use SentryMonologAdapter\Messenger\LoggingStrategy\LogAllFailedStrategy;
 use SentryMonologAdapter\Messenger\Middleware\MessengerLoggingMiddleware;
 use SentryMonologAdapter\Monolog\Handler\MonologHandlerDecorator;
 use Symfony\Component\Config\FileLocator;
@@ -65,14 +66,23 @@ class SentryMonologAdapterExtensionTest extends TestCase
             (string) $messengerLoggingMiddlewareDefinition->getArgument('$logger')
         );
 
-        $loggingStrategyDefinition = $container->getDefinition(
+        $logAfterPositionStrategyDefinition = $container->getDefinition(
             'sentry_monolog_adapter.log_after_position_strategy'
         );
-        self::assertSame(LogAfterPositionStrategy::class, $loggingStrategyDefinition->getClass());
+        self::assertSame(LogAfterPositionStrategy::class, $logAfterPositionStrategyDefinition->getClass());
         self::assertSame(
             2,
-            $loggingStrategyDefinition->getArgument('$position')
+            $logAfterPositionStrategyDefinition->getArgument('$position')
         );
+
+        $logAllFailedStrategyDefinition = $container->getDefinition(
+            'sentry_monolog_adapter.log_all_failed_strategy'
+        );
+        self::assertSame(LogAllFailedStrategy::class, $logAllFailedStrategyDefinition->getClass());
+
+        $methodCalls = $messengerLoggingMiddlewareDefinition->getMethodCalls();
+        $this->assertDefinitionMethodCall($methodCalls[0], 'addLoggingStrategy', [$logAfterPositionStrategyDefinition]);
+        $this->assertDefinitionMethodCall($methodCalls[1], 'addLoggingStrategy', [$logAllFailedStrategyDefinition]);
     }
 
     private function createContainerFromFixture(string $fixtureFile): ContainerBuilder
@@ -95,5 +105,11 @@ class SentryMonologAdapterExtensionTest extends TestCase
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/Fixtures'));
         $loader->load($fixtureFile . '.yaml');
+    }
+
+    private function assertDefinitionMethodCall(array $methodCall, string $method, array $arguments): void
+    {
+        $this->assertSame($method, $methodCall[0]);
+        $this->assertEquals($arguments, $methodCall[1]);
     }
 }
