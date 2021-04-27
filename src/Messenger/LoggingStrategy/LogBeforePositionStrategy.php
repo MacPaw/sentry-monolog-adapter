@@ -17,8 +17,6 @@ class LogBeforePositionStrategy extends RetryCountDependentStrategy
 
     public function willLog(Envelope $envelope): bool
     {
-        $retryCount = $this->getRetryCount($envelope);
-
-        return $retryCount <= $this->position;
+        return $this->getRetryCount($envelope) <= $this->position;
     }
 }
