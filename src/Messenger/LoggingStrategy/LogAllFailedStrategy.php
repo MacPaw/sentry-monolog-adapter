@@ -11,7 +11,6 @@ class LogAllFailedStrategy implements LoggingStrategyInterface
 {
     public function willLog(Envelope $envelope): bool
     {
-        $failedStamp  = $envelope->last(SentToFailureTransportStamp::class);
-        return $failedStamp instanceof SentToFailureTransportStamp;
+        return $envelope->last(SentToFailureTransportStamp::class) instanceof SentToFailureTransportStamp;
     }
 }

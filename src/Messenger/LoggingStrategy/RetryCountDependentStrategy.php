@@ -11,7 +11,8 @@ abstract class RetryCountDependentStrategy implements LoggingStrategyInterface
 {
     public function getRetryCount(Envelope $envelope): int
     {
-        $redeliveryStamp  = $envelope->last(RedeliveryStamp::class);
-        return $redeliveryStamp instanceof RedeliveryStamp ? $redeliveryStamp->getRetryCount() : 0;
+        return ($redeliveryStamp = $envelope->last(RedeliveryStamp::class)) instanceof RedeliveryStamp
+            ? $redeliveryStamp->getRetryCount()
+            : 0;
     }
 }
