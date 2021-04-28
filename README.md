@@ -96,7 +96,7 @@ Messenger:
 
 Step 3: Additional settings
 =============
-It is possible to add a preprocessor to add your parameters to the extra date:
+It is possible to add preprocessors for putting your parameters to the additional data:
 ```yaml
 sentry_monolog_adapter:
     monolog_handler_decorator:
