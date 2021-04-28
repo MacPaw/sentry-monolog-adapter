@@ -57,7 +57,7 @@ Create Sentry Monolog Adapter Config:
 ----------------------------------
 `config/packages/sentry_monolog_adapter.yaml `
 
-Configuration logging strategy MessengerLoggingMiddleware - all strategy see [here](https://github.com/MacPaw/sentry-monolog-adapter/tree/master/src/Messenger/LoggingStrategy).
+Configurating logging strategies of MessengerLoggingMiddleware - all strategies you can see [here](https://github.com/MacPaw/sentry-monolog-adapter/tree/master/src/Messenger/LoggingStrategy).
 
 ```yaml
 sentry_monolog_adapter:
