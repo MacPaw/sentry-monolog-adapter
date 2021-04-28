@@ -83,6 +83,7 @@ Monolog:
             id: sentry_monolog_adapter.monolog_handler_decorator
 ```
 
+
 Messenger:
 ----------------------------------
 `config/packages/messenger.yaml `
@@ -93,4 +94,12 @@ Messenger:
             ....
 ```
 
-
+Step 3: Additional settings
+=============
+It is possible to add a preprocessor to add your parameters to the extra date:
+```yaml
+sentry_monolog_adapter:
+    monolog_handler_decorator:
+        processors:
+            - YourProject\Monolog\Processor\CustomSentryExceptionProcessor
+```
