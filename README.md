@@ -62,7 +62,7 @@ Configurating logging strategies of MessengerLoggingMiddleware - all strategies 
 ```yaml
 sentry_monolog_adapter:
     messenger_logging_middleware:
-        logging_strategies: // array logging exstrategy
+        logging_strategies: // array of logging strategies
             - id: sentry_monolog_adapter.log_after_position_strategy
               options:
                   position: 3
