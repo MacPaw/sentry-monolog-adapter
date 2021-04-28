@@ -38,16 +38,18 @@ class SentryMonologAdapterExtension extends Extension
         if ($config['messenger_logging_middleware']['enabled']) {
             $loader->load('messenger_logging_middleware.xml');
 
-            if (isset($config['messenger_logging_middleware']['logging_strategy'])) {
-                $container->setAlias(
-                    'sentry_monolog_adapter.logging_strategy',
-                    $config['messenger_logging_middleware']['logging_strategy']['id']
-                );
-
-                $loggingStrategyDefinition = $container->findDefinition('sentry_monolog_adapter.logging_strategy');
-                foreach ($config['messenger_logging_middleware']['logging_strategy']['options'] as $key => $value) {
+            $messengerLoggingMiddlewareDefinition = $container
+                ->findDefinition('sentry_monolog_adapter.messenger_logging_middleware');
+            foreach ($config['messenger_logging_middleware']['logging_strategies'] as $loggingStrategyConfig) {
+                $loggingStrategyDefinition = $container->findDefinition($loggingStrategyConfig['id']);
+                foreach ($loggingStrategyConfig['options'] as $key => $value) {
                     $loggingStrategyDefinition->setArgument('$' . $key, $value);
                 }
+
+                $messengerLoggingMiddlewareDefinition->addMethodCall(
+                    'addLoggingStrategy',
+                    array($loggingStrategyDefinition)
+                );
             }
         }
     }

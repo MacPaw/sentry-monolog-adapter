@@ -1,7 +1,8 @@
 sentry_monolog_adapter:
     monolog_handler_decorator: true
     messenger_logging_middleware:
-        logging_strategy:
-            id: 'sentry_monolog_adapter.log_after_position_strategy'
-            options:
+        logging_strategies:
+            - id: 'sentry_monolog_adapter.log_after_position_strategy'
+              options:
                 position: 2
+            - id: 'sentry_monolog_adapter.log_all_failed_strategy'
