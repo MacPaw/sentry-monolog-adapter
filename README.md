@@ -94,7 +94,7 @@ Messenger:
             ....
 ```
 
-Step 3: Additional settings
+Step 4: Additional settings
 =============
 It is possible to add preprocessors for putting your parameters to the additional data:
 ```yaml
