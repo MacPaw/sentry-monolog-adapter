@@ -27,7 +27,7 @@ class LogAllFailedStrategyTest extends AbstractUnitTestCase
 
     /**
      * @param Envelope $envelope
-     * @param bool $willLog
+     * @param bool     $willLog
      *
      * @dataProvider getLogAllFailedStrategyDataProvider
      */
