@@ -15,4 +15,4 @@ jobs:
             - name: Run gitleaks
               uses: zricethezav/gitleaks-action@master
               with:
-                  config-path: .gitleaks.toml
+                  config-path: security/.gitleaks.toml
