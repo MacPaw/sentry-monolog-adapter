@@ -168,12 +168,7 @@ title = "gitleaks config"
     tags = ["key", "pypi"]
 
 [allowlist]
-    description = "Allowlisted files"
+    description = "Allow listed files"
     files = ['''^\.?gitleaks.toml$''',
     '''(.*?)(png|jpg|gif|doc|docx|pdf|bin|xls|pyc|zip)$''',
     '''(go.mod|go.sum)$''']
-
-[allowlist]
-    description = "image and test whitelists"
-    files = ['''(.*?)(jpg|gif|doc|pdf|bin)$''', '''yarn.lock''']
-    paths = [ '''test(s\b|\b)/''', '''configs/(staging|test|ci)''']
