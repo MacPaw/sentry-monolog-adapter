@@ -45,5 +45,8 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
 
-            - name: ComposerRequireChecker
+            - name: Install dependencies
+              run: composer install
+
+            - name: Run ComposerRequireChecker
               uses: docker://webfactory/composer-require-checker:2.1.0
