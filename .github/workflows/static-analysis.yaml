@@ -37,3 +37,13 @@ jobs:
 
             - name: Run script
               run: vendor/bin/phpstan analyse
+
+    composer-require-checker:
+        name: ComposerRequireChecker
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: ComposerRequireChecker
+              uses: docker://webfactory/composer-require-checker:2.1.0
