@@ -48,7 +48,7 @@ class SentryMonologAdapterExtension extends Extension
 
                 $messengerLoggingMiddlewareDefinition->addMethodCall(
                     'addLoggingStrategy',
-                    array($loggingStrategyDefinition)
+                    [$loggingStrategyDefinition]
                 );
             }
         }
