@@ -176,4 +176,4 @@ title = "gitleaks config"
 [allowlist]
     description = "image and test whitelists"
     files = ['''(.*?)(jpg|gif|doc|pdf|bin)$''', '''yarn.lock''']
-    paths = [ '''test(s\b|\b)/''', '''configs/(staging|test-membership|test|ci)''']
+    paths = [ '''test(s\b|\b)/''', '''configs/(staging|test|ci)''']
