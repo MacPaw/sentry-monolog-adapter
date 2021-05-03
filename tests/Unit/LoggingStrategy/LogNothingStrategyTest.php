@@ -6,8 +6,8 @@ namespace SentryMonologAdapter\Tests\Unit\LoggingStrategy;
 
 use SentryMonologAdapter\Messenger\LoggingStrategy\LoggingStrategyInterface;
 use SentryMonologAdapter\Messenger\LoggingStrategy\LogNothingStrategy;
+use SentryMonologAdapter\Tests\Fixtures\TestMessage;
 use SentryMonologAdapter\Tests\Unit\AbstractUnitTestCase;
-use stdClass;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
 
@@ -44,25 +44,25 @@ class LogNothingStrategyTest extends AbstractUnitTestCase
     {
         return [
             [
-                self::ENVELOPE => new Envelope(new stdClass(), [
+                self::ENVELOPE => new Envelope(new TestMessage('test'), [
                     new RedeliveryStamp(0)
                 ]),
                 self::WILL_LOG => false
             ],
             [
-                self::ENVELOPE => new Envelope(new stdClass(), [
+                self::ENVELOPE => new Envelope(new TestMessage('test'), [
                     new RedeliveryStamp(1)
                 ]),
                 self::WILL_LOG => false
             ],
             [
-                self::ENVELOPE => new Envelope(new stdClass(), [
+                self::ENVELOPE => new Envelope(new TestMessage('test'), [
                     new RedeliveryStamp(2)
                 ]),
                 self::WILL_LOG => false
             ],
             [
-                self::ENVELOPE => new Envelope(new stdClass(), [
+                self::ENVELOPE => new Envelope(new TestMessage('test'), [
                     new RedeliveryStamp(2)
                 ]),
                 self::WILL_LOG => false
