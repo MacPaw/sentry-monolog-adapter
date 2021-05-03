@@ -13,5 +13,6 @@
         <service id="sentry_monolog_adapter.log_after_position_strategy" class="SentryMonologAdapter\Messenger\LoggingStrategy\LogAfterPositionStrategy" public="false" />
         <service id="sentry_monolog_adapter.log_before_position_strategy" class="SentryMonologAdapter\Messenger\LoggingStrategy\LogBeforePositionStrategy" public="false" />
         <service id="sentry_monolog_adapter.arithmetic_progression_strategy" class="SentryMonologAdapter\Messenger\LoggingStrategy\ArithmeticProgressionStrategy" public="false" />
+        <service id="sentry_monolog_adapter.log_nothing_strategy" class="SentryMonologAdapter\Messenger\LoggingStrategy\LogNothingStrategy" public="false" />
     </services>
 </container>
