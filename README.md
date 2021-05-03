@@ -96,10 +96,11 @@ Messenger:
 
 Step 4: Additional settings
 =============
-It is possible to add preprocessors for putting your parameters to the additional data:
+It is possible to add preprocessors for putting your parameters to the additional data.
+Our library provides a [basic implementation](https://github.com/MacPaw/sentry-monolog-adapter/blob/feat/addDefaultProcessor/src/Processor/ExceptionProcessor.php), but at any time we can replace it with our own implementation
 ```yaml
 sentry_monolog_adapter:
     monolog_handler_decorator:
         processors:
-            - YourProject\Monolog\Processor\CustomSentryExceptionProcessor
+            - sentry_monolog_adapter.exception_processor
 ```
