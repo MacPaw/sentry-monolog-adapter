@@ -14,15 +14,15 @@ jobs:
                 php:
                     - '7.4'
                     - '8.0'
-                symfony-versions:
-                    - '4.4.*'
+                symfony-versions: ['none']
                 coverage: ['none']
                 include:
-                    - symfony-versions: 'none'
+                    - symfony-versions: '4.4.*'
                       php: '7.4'
-                    - symfony-versions: 'none'
+                    - symfony-versions: '4.4.*'
                       php: '8.0'
                     - description: 'Log Code Coverage'
+                      symfony-versions: 'none'
                       php: '8.0'
                       coverage: 'xdebug'
 
