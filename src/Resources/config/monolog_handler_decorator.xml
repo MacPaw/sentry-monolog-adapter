@@ -7,5 +7,7 @@
         <service id="sentry_monolog_adapter.monolog_handler_decorator" class="SentryMonologAdapter\Monolog\Handler\MonologHandlerDecorator" decorates="Sentry\Monolog\Handler">
             <argument type="service" id=".inner"/>
         </service>
+
+        <service id="sentry_monolog_adapter.exception_processor" class="SentryMonologAdapter\Processor\ExceptionProcessor" public="false" />
     </services>
 </container>
