@@ -1,6 +1,11 @@
 Symfony Sentry Monolog Adapter
 =================================
 
+| Version | Build Status | Code Coverage |
+|:---------:|:-------------:|:-----:|
+| `master`| [![CI][master Build Status Image]][master Build Status] | [![Coverage Status][master Code Coverage Image]][master Code Coverage] |
+| `develop`| [![CI][develop Build Status Image]][develop Build Status] | [![Coverage Status][develop Code Coverage Image]][develop Code Coverage] |
+
 Installation
 ============
 
@@ -104,3 +109,11 @@ sentry_monolog_adapter:
         processors:
             - sentry_monolog_adapter.exception_processor
 ```
+[master Build Status]: https://github.com/macpaw/sentry-monolog-adapter/actions?query=workflow%3ACI+branch%3Amaster
+[master Build Status Image]: https://github.com/macpaw/sentry-monolog-adapter/workflows/CI/badge.svg?branch=master
+[develop Build Status]: https://github.com/macpaw/sentry-monolog-adapter/actions?query=workflow%3ACI+branch%3Adevelop
+[develop Build Status Image]: https://github.com/macpaw/sentry-monolog-adapter/workflows/CI/badge.svg?branch=develop
+[master Code Coverage]: https://codecov.io/gh/macpaw/sentry-monolog-adapter/branch/master
+[master Code Coverage Image]: https://img.shields.io/codecov/c/github/macpaw/sentry-monolog-adapter/master?logo=codecov
+[develop Code Coverage]: https://codecov.io/gh/macpaw/sentry-monolog-adapter/branch/develop
+[develop Code Coverage Image]: https://img.shields.io/codecov/c/github/macpaw/sentry-monolog-adapter/develop?logo=codecov

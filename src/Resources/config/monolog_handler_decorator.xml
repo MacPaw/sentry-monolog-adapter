@@ -4,8 +4,8 @@
     xsd:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="sentry_monolog_adapter.monolog_handler_decorator" class="SentryMonologAdapter\Monolog\Handler\MonologHandlerDecorator" decorates="Sentry\Monolog\Handler">
-            <argument type="service" id=".inner"/>
+        <service autowire="true" id="sentry_monolog_adapter.monolog_handler_decorator" class="SentryMonologAdapter\Monolog\Handler\MonologHandlerDecorator" decorates="Sentry\Monolog\Handler">
+            <argument key="$sentryHandler" type="service" id=".inner"/>
         </service>
 
         <service id="sentry_monolog_adapter.exception_processor" class="SentryMonologAdapter\Processor\ExceptionProcessor" public="false" />
