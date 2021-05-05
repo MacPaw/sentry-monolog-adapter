@@ -25,8 +25,8 @@ class ExceptionProcessor
         $exception = $record['context']['exception'];
         $record['message'] = $exception->getMessage();
 
-        if (array_key_exists('parameters', $record['context'])) {
-            $record = $this->setExtra($record, $record['context']['parameters']);
+        if (method_exists($exception, 'getParameters')) {
+            $record = $this->setExtra($record, $exception->getParameters());
         }
 
         return $record;
