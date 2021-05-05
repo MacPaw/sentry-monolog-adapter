@@ -35,4 +35,13 @@ class ExceptionProcessorTest extends TestCase
         self::assertArrayHasKey('message', $result);
         self::assertNotEmpty($result['context']['extra']);
     }
+
+    public function testExceptionProcess(): void
+    {
+        $exceptionProcessor = new ExceptionProcessor();
+
+        $result = $exceptionProcessor->__invoke([]);
+
+        self::assertEmpty($result);
+    }
 }

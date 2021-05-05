@@ -16,7 +16,8 @@ class ExceptionProcessor
     public function __invoke(array $record): array
     {
         if (
-            !array_key_exists('exception', $record['context'])
+            array_key_exists('context', $record) === false
+            || !array_key_exists('exception', $record['context'])
             || !($record['context']['exception'] instanceof Throwable)
         ) {
             return $record;
