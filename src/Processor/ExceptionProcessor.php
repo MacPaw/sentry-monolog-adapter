@@ -17,7 +17,7 @@ class ExceptionProcessor
     {
         if (
             array_key_exists('context', $record) === false
-            || !array_key_exists('exception', $record['context'])
+            || array_key_exists('exception', $record['context']) === false
             || !($record['context']['exception'] instanceof Throwable)
         ) {
             return $record;
