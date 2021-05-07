@@ -22,21 +22,21 @@ use Throwable;
 
 class MessengerLoggingMiddlewareTest extends TestCase
 {
-    public function testNoExceptionOccurred()
+    public function testNoExceptionOccurred(): void
     {
         $message = new TestMessage('test');
         $envelope = new Envelope($message);
 
         $loggingStrategy = $this->createMock(LoggingStrategyInterface::class);
-        $loggingStrategy->expects($this->never())
+        $loggingStrategy->expects(self::never())
             ->method('willLog');
 
         $logger = $this->createMock(LoggerInterface::class);
-        $logger->expects($this->never())
+        $logger->expects(self::never())
             ->method('error');
 
         $client = $this->createMock(ClientInterface::class);
-        $client->expects($this->never())
+        $client->expects(self::never())
             ->method('flush');
 
         $scope = new Scope();
@@ -49,22 +49,22 @@ class MessengerLoggingMiddlewareTest extends TestCase
         $middleware->handle($envelope, $this->getStackMock());
     }
 
-    public function testExceptionLogged()
+    public function testExceptionLogged(): void
     {
         $message = new TestMessage('test');
         $envelope = new Envelope($message);
 
         $loggingStrategy = $this->createMock(LoggingStrategyInterface::class);
-        $loggingStrategy->expects($this->once())
+        $loggingStrategy->expects(self::once())
             ->method('willLog')
             ->willReturn(true);
 
         $logger = $this->createMock(LoggerInterface::class);
-        $logger->expects($this->once())
+        $logger->expects(self::once())
             ->method('error');
 
         $client = $this->createMock(ClientInterface::class);
-        $client->expects($this->once())
+        $client->expects(self::once())
             ->method('flush');
 
         $scope = new Scope();
@@ -77,26 +77,26 @@ class MessengerLoggingMiddlewareTest extends TestCase
         try {
             $middleware->handle($envelope, $this->getStackMock($handlerFailedException));
         } catch (Throwable $exception) {
-            $this->assertSame($handlerFailedException, $exception);
+            self::assertSame($handlerFailedException, $exception);
         }
     }
 
-    public function testExceptionNotLogged()
+    public function testExceptionNotLogged(): void
     {
         $message = new TestMessage('test');
         $envelope = new Envelope($message);
 
         $loggingStrategy = $this->createMock(LoggingStrategyInterface::class);
-        $loggingStrategy->expects($this->once())
+        $loggingStrategy->expects(self::once())
             ->method('willLog')
             ->willReturn(false);
 
         $logger = $this->createMock(LoggerInterface::class);
-        $logger->expects($this->never())
+        $logger->expects(self::never())
             ->method('error');
 
         $client = $this->createMock(ClientInterface::class);
-        $client->expects($this->never())
+        $client->expects(self::never())
             ->method('flush');
 
         $scope = new Scope();
@@ -109,21 +109,21 @@ class MessengerLoggingMiddlewareTest extends TestCase
         try {
             $middleware->handle($envelope, $this->getStackMock($handlerFailedException));
         } catch (Throwable $exception) {
-            $this->assertSame($handlerFailedException, $exception);
+            self::assertSame($handlerFailedException, $exception);
         }
     }
 
-    public function testExceptionNotLoggedWithNoStrategies()
+    public function testExceptionNotLoggedWithNoStrategies(): void
     {
         $message = new TestMessage('test');
         $envelope = new Envelope($message);
 
         $logger = $this->createMock(LoggerInterface::class);
-        $logger->expects($this->never())
+        $logger->expects(self::never())
             ->method('error');
 
         $client = $this->createMock(ClientInterface::class);
-        $client->expects($this->never())
+        $client->expects(self::never())
             ->method('flush');
 
         $scope = new Scope();
@@ -135,22 +135,22 @@ class MessengerLoggingMiddlewareTest extends TestCase
         try {
             $middleware->handle($envelope, $this->getStackMock($handlerFailedException));
         } catch (Throwable $exception) {
-            $this->assertSame($handlerFailedException, $exception);
+            self::assertSame($handlerFailedException, $exception);
         }
     }
 
-    protected function getStackMock(?Throwable $exception = null)
+    protected function getStackMock(?Throwable $exception = null): StackMiddleware
     {
         $nextMiddleware = $this->createMock(MiddlewareInterface::class);
 
         if ($exception !== null) {
             $nextMiddleware
-                ->expects($this->once())
+                ->expects(self::once())
                 ->method('handle')
                 ->willThrowException($exception);
         } else {
             $nextMiddleware
-                ->expects($this->once())
+                ->expects(self::once())
                 ->method('handle')
                 ->willReturnCallback(function (Envelope $envelope, StackInterface $stack): Envelope {
                     return $envelope;
