@@ -20,3 +20,5 @@ phpunit.xml
 ###< phpunit/phpunit ###
 /composer.lock
 /.phpcs-cache
+
+./node_modules
