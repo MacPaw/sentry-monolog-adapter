@@ -9,7 +9,7 @@ use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
 
 abstract class RetryCountDependentStrategy implements LoggingStrategyInterface
 {
-    public function getRetryCount(Envelope $envelope): int
+    protected function getRetryCount(Envelope $envelope): int
     {
         return ($redeliveryStamp = $envelope->last(RedeliveryStamp::class)) instanceof RedeliveryStamp
             ? $redeliveryStamp->getRetryCount()

@@ -6,6 +6,7 @@ namespace SentryMonologAdapter\Monolog\Handler;
 
 use Monolog\Handler\AbstractProcessingHandler;
 use Sentry\Monolog\Handler;
+use Sentry\State\HubInterface;
 use Sentry\State\Scope;
 
 use function Sentry\withScope;
@@ -16,10 +17,12 @@ use function Sentry\withScope;
 class MonologHandlerDecorator extends AbstractProcessingHandler
 {
     private Handler $sentryHandler;
+    private HubInterface $hub;
 
-    public function __construct(Handler $sentryHandler)
+    public function __construct(HubInterface $hub, Handler $sentryHandler)
     {
         $this->sentryHandler = $sentryHandler;
+        $this->hub = $hub;
     }
 
     /**
@@ -27,7 +30,7 @@ class MonologHandlerDecorator extends AbstractProcessingHandler
      */
     protected function write(array $record): void
     {
-        withScope(function (Scope $scope) use ($record): void {
+        $this->hub->withScope(function (Scope $scope) use ($record): void {
             if (isset($record['context']['extra']) && \is_array($record['context']['extra'])) {
                 foreach ($record['context']['extra'] as $key => $value) {
                     $scope->setExtra((string) $key, $value);

@@ -6,8 +6,8 @@ namespace SentryMonologAdapter\Tests\Unit\LoggingStrategy;
 
 use SentryMonologAdapter\Messenger\LoggingStrategy\LogAllFailedStrategy;
 use SentryMonologAdapter\Messenger\LoggingStrategy\LoggingStrategyInterface;
+use SentryMonologAdapter\Tests\Fixtures\TestMessage;
 use SentryMonologAdapter\Tests\Unit\AbstractUnitTestCase;
-use stdClass;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Stamp\SentToFailureTransportStamp;
 
@@ -44,13 +44,13 @@ class LogAllFailedStrategyTest extends AbstractUnitTestCase
     {
         return [
             [
-                self::ENVELOPE => new Envelope(new stdClass(), [
+                self::ENVELOPE => new Envelope(new TestMessage('test'), [
                     new SentToFailureTransportStamp('test')
                 ]),
                 self::WILL_LOG => true
             ],
             [
-                self::ENVELOPE => new Envelope(new stdClass(), []),
+                self::ENVELOPE => new Envelope(new TestMessage('test'), []),
                 self::WILL_LOG => false
             ]
         ];

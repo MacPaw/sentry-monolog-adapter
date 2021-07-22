@@ -1,6 +1,11 @@
 Symfony Sentry Monolog Adapter
 =================================
 
+| Version | Build Status | Code Coverage |
+|:---------:|:-------------:|:-----:|
+| `master`| [![CI][master Build Status Image]][master Build Status] | [![Coverage Status][master Code Coverage Image]][master Code Coverage] |
+| `develop`| [![CI][develop Build Status Image]][develop Build Status] | [![Coverage Status][develop Code Coverage Image]][develop Code Coverage] |
+
 Installation
 ============
 
@@ -8,7 +13,7 @@ Step 1: Download the Bundle
 ----------------------------------
 Open a command console, enter your project directory and execute:
 
-###  Applications that use Symfony Flex (In Progress)
+###  Applications that use Symfony Flex
 
 ```console
 $ composer require macpaw/sentry-monolog-adapter
@@ -96,10 +101,19 @@ Messenger:
 
 Step 4: Additional settings
 =============
-It is possible to add preprocessors for putting your parameters to the additional data:
+It is possible to add preprocessors for putting your parameters to the additional data.
+Our library provides a [basic implementation](https://github.com/MacPaw/sentry-monolog-adapter/blob/feat/addDefaultProcessor/src/Processor/ExceptionProcessor.php), but at any time we can replace it with our own implementation
 ```yaml
 sentry_monolog_adapter:
     monolog_handler_decorator:
         processors:
-            - YourProject\Monolog\Processor\CustomSentryExceptionProcessor
+            - sentry_monolog_adapter.exception_processor
 ```
+[master Build Status]: https://github.com/macpaw/sentry-monolog-adapter/actions?query=workflow%3ACI+branch%3Amaster
+[master Build Status Image]: https://github.com/macpaw/sentry-monolog-adapter/workflows/CI/badge.svg?branch=master
+[develop Build Status]: https://github.com/macpaw/sentry-monolog-adapter/actions?query=workflow%3ACI+branch%3Adevelop
+[develop Build Status Image]: https://github.com/macpaw/sentry-monolog-adapter/workflows/CI/badge.svg?branch=develop
+[master Code Coverage]: https://codecov.io/gh/macpaw/sentry-monolog-adapter/branch/master
+[master Code Coverage Image]: https://img.shields.io/codecov/c/github/macpaw/sentry-monolog-adapter/master?logo=codecov
+[develop Code Coverage]: https://codecov.io/gh/macpaw/sentry-monolog-adapter/branch/develop
+[develop Code Coverage Image]: https://img.shields.io/codecov/c/github/macpaw/sentry-monolog-adapter/develop?logo=codecov
