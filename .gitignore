@@ -21,4 +21,4 @@ phpunit.xml
 /composer.lock
 /.phpcs-cache
 
-./node_modules
+/node_modules/
