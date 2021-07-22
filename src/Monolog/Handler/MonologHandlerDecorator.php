@@ -9,6 +9,11 @@ use Sentry\Monolog\Handler;
 use Sentry\State\HubInterface;
 use Sentry\State\Scope;
 
+use function Sentry\withScope;
+
+/**
+ * @phpstan-import-type FormattedRecord from \Monolog\Handler\AbstractProcessingHandler
+ */
 class MonologHandlerDecorator extends AbstractProcessingHandler
 {
     private Handler $sentryHandler;
@@ -21,7 +26,7 @@ class MonologHandlerDecorator extends AbstractProcessingHandler
     }
 
     /**
-     * @param array<array> $record
+     * @phpstan-param FormattedRecord $record
      */
     protected function write(array $record): void
     {
