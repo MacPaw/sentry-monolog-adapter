@@ -70,7 +70,6 @@ jobs:
               run: |
                   composer require symfony/console:${{ matrix.symfony-versions }} --no-update --no-scripts
                   composer require symfony/dotenv:${{ matrix.symfony-versions }} --no-update --no-scripts
-                  composer require sentry/sentry-symfony:${{ matrix.symfony-versions }} --no-update --no-scripts
                   composer require symfony/messenger:${{ matrix.symfony-versions }} --no-update --no-scripts
 
                   composer require --dev symfony/yaml:${{ matrix.symfony-versions }} --no-update --no-scripts
