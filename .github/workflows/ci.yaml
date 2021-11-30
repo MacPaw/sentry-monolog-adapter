@@ -14,6 +14,7 @@ jobs:
                 php:
                     - '7.4'
                     - '8.0'
+                    - '8.1'
                 symfony-versions: ['none']
                 coverage: ['none']
                 include:
@@ -21,13 +22,17 @@ jobs:
                       php: '7.4'
                     - symfony-versions: '4.4.*'
                       php: '8.0'
+                    - symfony-versions: '4.4.*'
+                      php: '8.1'
                     - symfony-versions: '5.3.*'
                       php: '7.4'
                     - symfony-versions: '5.3.*'
                       php: '8.0'
+                    - symfony-versions: '5.3.*'
+                      php: '8.1'
                     - description: 'Log Code Coverage'
                       symfony-versions: 'none'
-                      php: '8.0'
+                      php: '8.1'
                       coverage: 'xdebug'
 
         name: PHP ${{ matrix.php }} Symfony ${{ matrix.symfony-versions }} ${{ matrix.description }}
@@ -60,9 +65,15 @@ jobs:
                   key: ${{ runner.os }}-${{ matrix.php }}-${{ matrix.symfony-versions }}-composer-${{ hashFiles('composer.json') }}
                   restore-keys: ${{ runner.os }}-${{ matrix.php }}-${{ matrix.symfony-versions }}-composer
 
-            - name: Install dependencies
-              run: composer require "symfony/symfony:${{ matrix.symfony-versions }}" --no-update
+            - name: Update Symfony version
               if: matrix.symfony-versions != 'none'
+              run: |
+                  composer require symfony/console:${{ matrix.symfony-versions }} --no-update --no-scripts
+                  composer require symfony/dotenv:${{ matrix.symfony-versions }} --no-update --no-scripts
+                  composer require symfony/messenger:${{ matrix.symfony-versions }} --no-update --no-scripts
+
+                  composer require --dev symfony/yaml:${{ matrix.symfony-versions }} --no-update --no-scripts
+                  composer require --dev symfony/phpunit-bridge:${{ matrix.symfony-versions }} --no-update --no-scripts
 
             - name: Install dependencies
               run: composer install
