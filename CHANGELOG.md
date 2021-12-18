@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.0](https://github.com/MacPaw/sentry-monolog-adapter/compare/v0.2.0...v0.3.0) (2021-12-18)
+
+
+### Features
+
+* add support deps symfony version 6 ([c2f0e6d](https://github.com/MacPaw/sentry-monolog-adapter/commit/c2f0e6d7a045c42e0f3c1af386ae270b418a4c9f))
+* support symfony 54 ([b1b4b6a](https://github.com/MacPaw/sentry-monolog-adapter/commit/b1b4b6a0838d69d053228df4f17627a43dab0bd1))
+* support symfony 54 ([40c5b8e](https://github.com/MacPaw/sentry-monolog-adapter/commit/40c5b8ee87ff0816b9febb7415044a0b6d48e0a6))
+
 ## [0.2.0](https://github.com/MacPaw/sentry-monolog-adapter/compare/v0.1.0...v0.2.0) (2021-11-30)
 
 
