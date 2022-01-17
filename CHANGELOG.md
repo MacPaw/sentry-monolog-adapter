@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.0](https://github.com/MacPaw/sentry-monolog-adapter/compare/v0.2.0...v0.3.0) (2021-12-18)
+
+
+### Features
+
+* add support deps symfony version 6 ([c2f0e6d](https://github.com/MacPaw/sentry-monolog-adapter/commit/c2f0e6d7a045c42e0f3c1af386ae270b418a4c9f))
+* support symfony 54 ([b1b4b6a](https://github.com/MacPaw/sentry-monolog-adapter/commit/b1b4b6a0838d69d053228df4f17627a43dab0bd1))
+* support symfony 54 ([40c5b8e](https://github.com/MacPaw/sentry-monolog-adapter/commit/40c5b8ee87ff0816b9febb7415044a0b6d48e0a6))
+
+## [0.2.0](https://github.com/MacPaw/sentry-monolog-adapter/compare/v0.1.0...v0.2.0) (2021-11-30)
+
+
+### Features
+
+* add ignore deprecation helper ([5b6b3af](https://github.com/MacPaw/sentry-monolog-adapter/commit/5b6b3af0a4bcd360191dc4eee37d61c345454708))
+* add support ci new php version 8.1 ([0f60c50](https://github.com/MacPaw/sentry-monolog-adapter/commit/0f60c506912b8ae74666efa24ad412a8447f708c))
+* change release user token ([5ba7c0f](https://github.com/MacPaw/sentry-monolog-adapter/commit/5ba7c0faf138f69e26430ce569be7eeaca50e06b))
+* remove change version in sentry symfony ([2aafba6](https://github.com/MacPaw/sentry-monolog-adapter/commit/2aafba6a66d239f4c7b30b69c261751448dd7f71))
+* remove change version in symfony monolog ([9d5ed1f](https://github.com/MacPaw/sentry-monolog-adapter/commit/9d5ed1f92d6269900a515193884213465b424dd3))
+
 ## [0.1.0](https://github.com/MacPaw/sentry-monolog-adapter/compare/v0.0.3...v0.1.0) (2021-07-22)
 
 
