@@ -23,6 +23,7 @@ class MonologHandlerDecorator extends AbstractProcessingHandler
     {
         $this->sentryHandler = $sentryHandler;
         $this->hub = $hub;
+        parent::__construct();
     }
 
     /**
