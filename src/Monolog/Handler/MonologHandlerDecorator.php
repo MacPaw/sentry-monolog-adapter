@@ -12,9 +12,6 @@ use Sentry\State\Scope;
 
 use function Sentry\withScope;
 
-/**
- * @phpstan-import-type FormattedRecord from \Monolog\Handler\AbstractProcessingHandler
- */
 class MonologHandlerDecorator extends AbstractProcessingHandler
 {
     private Handler $sentryHandler;
