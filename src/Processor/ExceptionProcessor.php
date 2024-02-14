@@ -9,9 +9,9 @@ use Throwable;
 class ExceptionProcessor
 {
     /**
-     * @param array<mixed> $record
+     * @param array<string, mixed> $record
      *
-     * @return array<mixed>
+     * @return array[]
      */
     public function __invoke(array $record): array
     {
@@ -36,10 +36,10 @@ class ExceptionProcessor
     /**
      * setExtra.
      *
-     * @param array<string, array<mixed>> $record
-     * @param array<string, mixed>        $parameters
+     * @param array[] $record
+     * @param array[] $parameters
      *
-     * @return array<string, array<mixed>>
+     * @return array[]
      */
     private function setExtra(array $record, array $parameters): array
     {
