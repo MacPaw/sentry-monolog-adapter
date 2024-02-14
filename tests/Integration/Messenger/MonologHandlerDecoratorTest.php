@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SentryMonologAdapter\Tests\Integration\Messenger;
 
-use Monolog\Level;
+use Monolog\Logger;
 use Monolog\LogRecord;
 use PHPUnit\Framework\TestCase;
 use Sentry\ClientInterface;
@@ -76,7 +76,7 @@ class MonologHandlerDecoratorTest extends TestCase
                     'id' => 'test_id',
                     'message' => 'test_message',
                     'monolog.channel' => 'channel.test',
-                    'monolog.level' => Level::Debug->getName(),
+                    'monolog.level' => Logger::getLevelName(Logger::DEBUG),
                 ],
                 [
                     'test_key' => 'test_value'
@@ -93,7 +93,7 @@ class MonologHandlerDecoratorTest extends TestCase
                 ),
                 [
                     'monolog.channel' => 'channel.test',
-                    'monolog.level' => Level::Debug->getName(),
+                    'monolog.level' => Logger::getLevelName(Logger::DEBUG),
                 ],
                 []
             ]
