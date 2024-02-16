@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace SentryMonologAdapter\Monolog\Handler;
 
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\LogRecord;
 use Sentry\Monolog\Handler;
 use Sentry\State\HubInterface;
 use Sentry\State\Scope;
 
 use function Sentry\withScope;
 
-/**
- * @phpstan-import-type FormattedRecord from \Monolog\Handler\AbstractProcessingHandler
- */
 class MonologHandlerDecorator extends AbstractProcessingHandler
 {
     private Handler $sentryHandler;
@@ -27,19 +25,21 @@ class MonologHandlerDecorator extends AbstractProcessingHandler
     }
 
     /**
-     * @phpstan-param FormattedRecord $record
+     * @phpstan-param LogRecord $record
      */
-    protected function write(array $record): void
+    protected function write(LogRecord $record): void
     {
         $this->hub->withScope(function (Scope $scope) use ($record): void {
-            if (isset($record['context']['extra']) && \is_array($record['context']['extra'])) {
-                foreach ($record['context']['extra'] as $key => $value) {
+            $context = $record->context;
+
+            if (isset($context['extra']) && \is_array($context['extra'])) {
+                foreach ($context['extra'] as $key => $value) {
                     $scope->setExtra((string) $key, $value);
                 }
             }
 
-            if (isset($record['context']['tags']) && \is_array($record['context']['tags'])) {
-                foreach ($record['context']['tags'] as $key => $value) {
+            if (isset($context['tags']) && \is_array($context['tags'])) {
+                foreach ($context['tags'] as $key => $value) {
                     $scope->setTag($key, $value);
                 }
             }
