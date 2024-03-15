@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace SentryMonologAdapter\Tests\Integration\Messenger;
 
+use Monolog\Level;
 use Monolog\Logger;
+use Monolog\LogRecord;
 use PHPUnit\Framework\TestCase;
 use Sentry\ClientInterface;
 use Sentry\Event;
@@ -16,14 +18,14 @@ use SentryMonologAdapter\Monolog\Handler\MonologHandlerDecorator;
 class MonologHandlerDecoratorTest extends TestCase
 {
     /**
-     * @param array $record
-     * @param array $expectedExtra
-     * @param array $expectedTags
+     * @param LogRecord $record
+     * @param array     $expectedExtra
+     * @param array     $expectedTags
      *
      * @dataProvider handleDataProvider
      */
     public function testHandle(
-        array $record,
+        LogRecord $record,
         array $expectedExtra,
         array $expectedTags
     ): void {
@@ -55,12 +57,12 @@ class MonologHandlerDecoratorTest extends TestCase
     {
         return [
             [
-                [
-                    'message' => 'test',
-                    'level' => Logger::DEBUG,
-                    'level_name' => Logger::getLevelName(Logger::DEBUG),
-                    'channel' => 'channel.test',
-                    'context' => [
+                new LogRecord(
+                    new \DateTimeImmutable(),
+                    'channel.test',
+                    Level::Debug,
+                    'test',
+                    [
                         'extra' => [
                             'id' => 'test_id',
                             'message' => 'test_message'
@@ -69,8 +71,8 @@ class MonologHandlerDecoratorTest extends TestCase
                             'test_key' => 'test_value'
                         ]
                     ],
-                    'extra' => []
-                ],
+                    []
+                ),
                 [
                     'id' => 'test_id',
                     'message' => 'test_message',
@@ -82,14 +84,14 @@ class MonologHandlerDecoratorTest extends TestCase
                 ]
             ],
             [
-                [
-                    'message' => 'test',
-                    'level' => Logger::DEBUG,
-                    'level_name' => Logger::getLevelName(Logger::DEBUG),
-                    'channel' => 'channel.test',
-                    'context' => [],
-                    'extra' => []
-                ],
+                new LogRecord(
+                    new \DateTimeImmutable(),
+                    'channel.test',
+                    Level::Debug,
+                    'test',
+                    [],
+                    []
+                ),
                 [
                     'monolog.channel' => 'channel.test',
                     'monolog.level' => Logger::getLevelName(Logger::DEBUG),
