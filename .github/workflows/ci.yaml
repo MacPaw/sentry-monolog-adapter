@@ -85,14 +85,15 @@ jobs:
           fi
 
       - name: Run PHPUnit tests
-        run: composer phpunit
+        run: vendor/bin/simple-phpunit
+        env:
+          SYMFONY_PHPUNIT_DIR: ${{ github.workspace }}/var/phpunit
         if: matrix.coverage == 'none'
 
       - name: PHPUnit tests and Log Code coverage
         run: vendor/bin/simple-phpunit --coverage-clover=coverage.xml
-        working-directory: ${{ github.workspace }}
         env:
-          COMPOSER: ${{ github.workspace }}/composer.json
+          SYMFONY_PHPUNIT_DIR: ${{ github.workspace }}/var/phpunit
         if: matrix.coverage == 'xdebug'
 
       - name: Upload coverage to Codecov
