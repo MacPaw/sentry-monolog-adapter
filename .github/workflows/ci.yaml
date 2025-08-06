@@ -86,10 +86,12 @@ jobs:
 
       - name: Run PHPUnit tests
         run: vendor/bin/simple-phpunit
+        working-directory: ${{ github.workspace }}
         if: matrix.coverage == 'none'
 
       - name: PHPUnit tests and Log Code coverage
         run: vendor/bin/simple-phpunit --coverage-clover=coverage.xml
+        working-directory: ${{ github.workspace }}
         if: matrix.coverage == 'xdebug'
 
       - name: Upload coverage to Codecov
