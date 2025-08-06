@@ -5,6 +5,10 @@ on:
   push:
     branches: [ master, develop ]
 
+permissions:
+  contents: read
+  actions: read
+
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -27,27 +31,31 @@ jobs:
           - php: '8.1'
             symfony-versions: '7.0.*'
         include:
-          - php: '8.1'
+          - description: 'Minimal PHP 8.1'
+            php: '8.1'
             coverage: 'none'
             symfony-versions: 'none'
-          - php: '8.2'
+          - description: 'Minimal PHP 8.2'
+            php: '8.2'
             coverage: 'none'
             symfony-versions: 'none'
           - description: 'Log Code Coverage'
             php: '8.2'
             coverage: 'xdebug'
             symfony-versions: 'none'
-          - php: '8.3'
+          - description: 'Minimal PHP 8.3'
+            php: '8.3'
             coverage: 'none'
             symfony-versions: 'none'
-          - php: '8.4'
+          - description: 'Minimal PHP 8.4'
+            php: '8.4'
             coverage: 'none'
             symfony-versions: 'none'
 
     name: PHP ${{ matrix.php }} Symfony ${{ matrix.symfony-versions }} ${{ matrix.description }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -60,14 +68,17 @@ jobs:
 
       - name: Set composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
-      - name: Cache composer
-        uses: actions/cache@v3
+      - name: Cache composer dependencies
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-${{ matrix.php }}-${{ matrix.symfony-versions }}-composer-${{ hashFiles('composer.json') }}
-          restore-keys: ${{ runner.os }}-${{ matrix.php }}-${{ matrix.symfony-versions }}-composer-
+          key: ${{ runner.os }}-${{ matrix.php }}-${{ matrix.symfony-versions }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.php }}-${{ matrix.symfony-versions }}-composer-
+            ${{ runner.os }}-${{ matrix.php }}-composer-
+            ${{ runner.os }}-composer-
 
       - name: Update Symfony version
         if: matrix.symfony-versions != 'none'
@@ -80,7 +91,7 @@ jobs:
           composer require --dev symfony/phpunit-bridge:${{ matrix.symfony-versions }} --no-update --no-scripts
 
       - name: Install dependencies
-        run: composer install
+        run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Run PHPUnit tests
         run: vendor/bin/simple-phpunit
@@ -90,7 +101,7 @@ jobs:
         run: vendor/bin/simple-phpunit --coverage-clover=coverage.xml
         if: matrix.coverage == 'xdebug'
 
-      - name: Run codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         if: matrix.coverage == 'xdebug'
         with:
