@@ -7,7 +7,7 @@ namespace SentryMonologAdapter\Tests\Fixtures;
 use Exception;
 use Throwable;
 
-class TestException extends Exception implements Throwable
+class TestException extends Exception
 {
     /**
      * @var iterable[]
@@ -24,7 +24,7 @@ class TestException extends Exception implements Throwable
         string $message,
         array $parameters,
         int $code = 0,
-        Throwable $previous = null
+        ?Throwable $previous = null
     ) {
         $this->parameters = $parameters;
 
