@@ -85,10 +85,7 @@ jobs:
           fi
 
       - name: Run PHPUnit tests
-        run: vendor/bin/simple-phpunit
-        working-directory: ${{ github.workspace }}
-        env:
-          COMPOSER: ${{ github.workspace }}/composer.json
+        run: composer phpunit
         if: matrix.coverage == 'none'
 
       - name: PHPUnit tests and Log Code coverage
