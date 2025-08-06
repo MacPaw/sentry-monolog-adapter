@@ -77,7 +77,12 @@ jobs:
           composer require --dev symfony/phpunit-bridge:${{ matrix.symfony-versions }} --no-update --no-scripts
 
       - name: Install dependencies
-        run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
+        run: |
+          if [ "${{ matrix.symfony-versions }}" != "none" ]; then
+            composer update --no-progress --no-interaction --prefer-dist --optimize-autoloader
+          else
+            composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
+          fi
 
       - name: Run PHPUnit tests
         run: vendor/bin/simple-phpunit
