@@ -6,6 +6,21 @@ Symfony Sentry Monolog Adapter
 | `master`| [![CI][master Build Status Image]][master Build Status] | [![Coverage Status][master Code Coverage Image]][master Code Coverage] |
 | `develop`| [![CI][develop Build Status Image]][develop Build Status] | [![Coverage Status][develop Code Coverage Image]][develop Code Coverage] |
 
+The Sentry Monolog Adapter is a Symfony bundle designed to enhance and provide granular control over logging to Sentry. It is particularly powerful for applications that use the Symfony Messenger component, allowing you to implement intelligent logging strategies to avoid log floods and focus on critical errors.
+
+### Key Features
+
+*   **Advanced Log Processing**: Utilizes a decorator for Monolog's Sentry handler to process and enrich log records before they are sent.
+*   **Customizable Processors**: Add your own processors to include or modify contextual data, with a built-in `ExceptionProcessor` to get you started.
+*   **Intelligent Messenger Logging**: A dedicated middleware for the Symfony Messenger component that allows you to control which messages are logged based on flexible strategies.
+*   **Built-in Logging Strategies**: A suite of strategies is provided out-of-the-box, including:
+    *   `LogAllFailedStrategy`: Only logs messages that fail.
+    *   `LogAfterPositionStrategy`: Logs messages after a specific number of retries.
+    *   `ArithmeticProgressionStrategy`: Logs based on an arithmetic sequence of retry attempts.
+    *   And several others to fit your needs.
+*   **Modern and Compatible**: Built for PHP 8.1+ and compatible with `sentry/sentry-symfony` v5.
+
+
 Installation
 ============
 
