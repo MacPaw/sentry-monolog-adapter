@@ -17,14 +17,4 @@ plugins:
     successComment: false
     failComment: false
     releasedLabels: false
-  - path: "@semantic-release/changelog"
-    changelogFile: "CHANGELOG.md"
-    changelogTitle: |
-      # Changelog
-
-      All notable changes to this project will be documented in this file. See
-      [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-  - path: "@semantic-release/git"
-    assets:
-      - "CHANGELOG.md"
-    message: "chore(release): ${nextRelease.version} [skip ci]"
+    generateReleaseNotes: true
