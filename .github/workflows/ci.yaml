@@ -1,9 +1,15 @@
 name: CI
 
 on:
-  pull_request:
   push:
-    branches: [ master, develop ]
+    branches:
+      - master
+  pull_request:
+    types:
+      - labeled
+      - opened
+      - reopened
+      - synchronize
 
 permissions:
   contents: read
