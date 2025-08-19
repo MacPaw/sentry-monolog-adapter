@@ -1,0 +1,30 @@
+branches:
+  - master
+preset: conventionalcommits
+plugins:
+  - path: "@semantic-release/commit-analyzer"
+  - path: "@semantic-release/release-notes-generator"
+    writerOpts:
+      commitsSort:
+        - subject
+        - scope
+    parserOpts:
+      noteKeywords:
+        - BREAKING CHANGE
+        - BREAKING CHANGES
+        - BREAKING
+  - path: "@semantic-release/github"
+    successComment: false
+    failComment: false
+    releasedLabels: false
+  - path: "@semantic-release/changelog"
+    changelogFile: "CHANGELOG.md"
+    changelogTitle: |
+      # Changelog
+
+      All notable changes to this project will be documented in this file. See
+      [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+  - path: "@semantic-release/git"
+    assets:
+      - "CHANGELOG.md"
+    message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"

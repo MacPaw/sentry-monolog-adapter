@@ -3,7 +3,6 @@
     "description": "Sentry monolog logging bundle",
     "homepage": "https://github.com/MacPaw/sentry-monolog-adapter",
     "type": "symfony-bundle",
-    "version": "1.0.0",
     "keywords": [
         "MacPaw",
         "Symfony",

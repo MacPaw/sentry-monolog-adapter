@@ -1,14 +1,21 @@
 {
   "name": "sentry-monolog-adapter",
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "husky": "^4.3.0"
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
+    "husky": "^9.0.0",
+    "semantic-release": "^23.0.0",
+    "@semantic-release/commit-analyzer": "^12.0.0",
+    "@semantic-release/release-notes-generator": "^13.0.0",
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/github": "^10.0.0",
+    "@semantic-release/git": "^10.0.0",
+    "conventional-changelog-conventionalcommits": "^7.0.0"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint --verbose -E HUSKY_GIT_PARAMS"
-    }
+  "scripts": {
+    "prepare": "husky install",
+    "semantic-release": "semantic-release",
+    "commit": "git-cz"
   },
   "repository": {
     "type": "git",
