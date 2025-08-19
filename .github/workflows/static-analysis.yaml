@@ -1,39 +1,42 @@
 name: Code style and static analysis
 
 on:
-    pull_request:
-    push:
-        branches: [ master, develop ]
+  pull_request:
+  push:
+    branches: [ master, develop ]
+
+permissions:
+  contents: read
 
 jobs:
-    php-cs-fixer:
-        name: PHP-CS-Fixer
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2
+  php-cs-fixer:
+    name: PHP-CS-Fixer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
 
-            - name: Install dependencies
-              run: composer install --no-progress --no-interaction --prefer-dist
+      - name: Install dependencies
+        run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
 
-            - name: Run script
-              run: vendor/bin/phpcs
+      - name: Run PHP CS Fixer
+        run: vendor/bin/phpcs
 
-    phpstan:
-        name: PHPStan
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2
+  phpstan:
+    name: PHPStan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
 
-            - name: Install dependencies
-              run: composer install --no-progress --no-interaction --prefer-dist
+      - name: Install dependencies
+        run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
 
-            - name: Run script
-              run: vendor/bin/phpstan analyse
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse
