@@ -1,3 +1,5 @@
+![Sentry Monolog Adapter](.github/header.png)
+
 Symfony Sentry Monolog Adapter
 =================================
 
